@@ -1,0 +1,7 @@
+test:
+  base_url: http://api.espn.com/v1/sports/basketball
+  apikey: test_key
+
+development:
+  base_url: http://api.espn.com/v1/sports/basketball
+  apikey: YOUR_API_KEY_HERE

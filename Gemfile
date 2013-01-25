@@ -21,9 +21,13 @@ gem 'jquery-rails'
 # High voltage makes it easy to add static pages
 gem "high_voltage", "~> 1.2.1"
 
+# Use restclient to talk to the ESPN API
+gem "rest-client", "~> 1.6.7"
+
 group :test do
     gem "rspec-rails", '~> 2.12.2'
-    gem "cucumber-rails", '~> 1.3.0'
+    gem "cucumber-rails", '~> 1.3.0', :require => false
+    gem "webmock", '~> 1.9.0'
 end
 
 # To use Jbuilder templates for JSON
