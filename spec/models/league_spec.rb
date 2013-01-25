@@ -23,7 +23,12 @@ describe League do
 
   describe "attributes" do
     before :each do
-      @league = League.new(:name => "Test league", :short_name => "TL", :id => 123)
+      @league = League.new(
+        :name => "Test league",
+        :short_name => "TL",
+        :id => 123,
+        :abbreviation => "test-league"
+      )
     end
 
     it "has a name" do
@@ -37,10 +42,53 @@ describe League do
     it "has an id" do
       expect(@league.id).to eq(123)
     end
+
+    it "has an abbreviation" do
+      expect(@league.abbreviation).to eq("test-league")
+    end
   end
 
   it "returns its attributes as json" do
-    league = League.new(:name => "Test League", :short_name => "TL", :id => 123)
-    expect(league.as_json).to eq({name:"Test League",short_name:"TL",id:123})
+    # See spec/support/espn_mocking.rb
+    mock_espn_success
+
+    league = League.first
+    json_data = league.as_json
+    expect(json_data[:name]).to eq("National Basketball Assoc.")
+    expect(json_data[:short_name]).to eq("NBA")
+    expect(json_data[:id]).to eq(46)
+    expect(json_data[:abbreviation]).to eq("nba")
+  end
+
+  describe "teams" do
+    before :each do
+      # See spec/support/espn_mocking.rb
+      mock_espn_success
+      @league = League.first
+      @teams = @league.teams
+    end
+
+    it "returns a list of teams" do
+      expect(@teams).to be_an(Array)
+      expect(@teams.map(&:class).uniq).to eq([Team])
+    end
+
+    it "sets each team name" do
+      names = @teams.map(&:name)
+      expect(names).to eq(["Tigers", "Blazers", "Jaguars"])
+    end
+
+    it "sets each team id" do
+      ids = @teams.map(&:id)
+      expect(ids).to eq([2, 5, 6])
+    end
+
+    it "returns the teams in the json" do
+      json_data = @league.as_json
+      teams = json_data[:teams]
+      expect(teams).to include({name:"Tigers",id:2})
+      expect(teams).to include({name:"Blazers",id:5})
+      expect(teams).to include({name:"Jaguars",id:6})
+    end
   end
 end

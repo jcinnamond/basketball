@@ -30,6 +30,19 @@ describe TeamsController do
         leauge_names = leagues.map { |l| l["short_name"] }
         expect(leauge_names).to eq(["NBA", "WNBA", "NCAA Basketball", "NCAA Women's Basketball"])
       end
+
+      it "returns the teams for each league" do
+        do_action
+        first_league = JSON.parse(response.body).first
+        teams = first_league["teams"]
+        expect(teams).to eq(
+          [
+            { "name" => "Tigers", "id" => 2 },
+            { "name" => "Blazers", "id" => 5},
+            { "name" => "Jaguars", "id" => 6}
+        ]
+        )
+      end
     end
   end
 end

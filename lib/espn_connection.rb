@@ -22,8 +22,8 @@ class ESPNConnection
     url = base_url
     if path && ! path.blank?
       path = "/#{path}" unless path[0] == "/"
-      url << path
+      url += path
     end
-    url << "?apikey=#{apikey}"
+    url + "?apikey=#{apikey}"
   end
 end

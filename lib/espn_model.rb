@@ -14,6 +14,9 @@ module ESPNModel
     self.class.attribute_names.each do |attr|
       attributes[attr] = self.send(attr)
     end
+    self.class.associations.each do |association|
+      attributes[association] = self.send(association).map(&:as_json)
+    end
     attributes
   end
 end
@@ -28,21 +31,54 @@ module ESPNModelDSL
       end
     end
 
-    @@attribute_names ||= []
-    @@attribute_names += new_attrs.map(&:to_sym)
+    attribute_names ||= self.instance_variable_get(:@attribute_names) || []
+    attribute_names += new_attrs.map(&:to_sym)
+    self.instance_variable_set(:@attribute_names, attribute_names)
   end
 
   def attribute_names
-    @@attribute_names
+    self.instance_variable_get(:@attribute_names)
   end
 
-  def key(key)
-    @@key = key
+  def has_many(name)
+    klass = Object.const_get(name.to_s.classify)
+    define_method(name) do
+      klass.all(:parent_id => self.to_id, :parent_key => self.class.key)
+    end
+
+    associations ||= self.instance_variable_get(:@associations) || []
+    associations << name
+    self.instance_variable_set(:@associations, associations)
   end
 
-  def all
-    data = espn_connection.get("")[@@key.to_s]
+  def associations
+    self.instance_variable_get(:@associations) || []
+  end
+
+  def key
+    self.name.tableize
+  end
+
+  def set_path(path)
+    self.instance_variable_set(:@path, path)
+  end
+
+  def path
+    self.instance_variable_get(:@path)
+  end
+
+  def all(options = {})
+    resource_path = [options[:parent_id], path].compact.join("/")
+    raw_data = espn_connection.get(resource_path)
+    if options[:parent_key]
+      raw_data = raw_data[options[:parent_key].to_s].first
+    end
+    data = raw_data[self.key]
     data.map { |params| self.new(normalize_keys(params)) }
+  end
+
+  def first
+    all.first
   end
 
   def espn_connection
