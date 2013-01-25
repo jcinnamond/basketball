@@ -1,0 +1,39 @@
+@import "foundation";
+
+// Basic layout
+//
+// This uses zurb's sass mixins to allow a more semantic markup for grids
+nav {
+  @include column(4);
+}
+
+section[role="main"] {
+  @include column(8);
+}
+
+/*******************************************************************************
+  Navigation styling
+
+  Override some of zurb's styling
+*******************************************************************************/
+nav ul.teams  { // nested lists
+  margin-left: 40px;
+
+  li {
+    border-left: none !important;
+
+    a {
+      background: none !important;
+      color: $txtColor !important;
+      padding-left: 0 !important;
+      font-weight: normal !important;
+      cursor: pointer !important;
+    }
+
+    &.active {
+      border-top: none !important;
+
+      a { font-weight: bold !important; }
+    }
+  }
+}

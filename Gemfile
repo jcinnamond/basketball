@@ -10,9 +10,16 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+
+  # Using zurb as a responsive css framework
+  gem 'compass-rails', '~> 1.0.3'
+  gem 'zurb-foundation', '~> 3.2.4'
 end
 
 gem 'jquery-rails'
+
+# High voltage makes it easy to add static pages
+gem "high_voltage", "~> 1.2.1"
 
 group :test do
     gem "rspec-rails", '~> 2.12.2'
