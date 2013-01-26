@@ -1,3 +1,6 @@
+# See features/support/espn_mocking for the loading of the
+# espn mocking module which defines mock_espn_* methods.
+
 Given /^a successful response from ESPN$/ do
-  # We will stub out the response from ESPN here
+  mock_espn_success
 end

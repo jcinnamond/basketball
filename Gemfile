@@ -27,6 +27,7 @@ gem "rest-client", "~> 1.6.7"
 group :test do
     gem "rspec-rails", '~> 2.12.2'
     gem "cucumber-rails", '~> 1.3.0', :require => false
+    gem "poltergeist", "1.0.2"
     gem "webmock", '~> 1.9.0'
 end
 
