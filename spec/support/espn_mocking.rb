@@ -5,6 +5,8 @@ module ESPNMocking
     mock_espn("/wnba/teams", :teams_success)
     mock_espn("/mens-college-basketball/teams", :teams_success)
     mock_espn("/womens-college-basketball/teams", :teams_success)
+    mock_espn("/nba/teams/1/news", :news_success)
+    mock_espn("/nba/teams/6/news", :news_success)
   end
 
   def mock_espn(url, fixture)

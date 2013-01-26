@@ -27,8 +27,8 @@ describe TeamsController do
       it "returns the leagues" do
         do_action
         leagues = JSON.parse(response.body)
-        leauge_names = leagues.map { |l| l["short_name"] }
-        expect(leauge_names).to eq(["NBA", "WNBA", "NCAA Basketball", "NCAA Women's Basketball"])
+        league_names = leagues.map { |l| l["short_name"] }
+        expect(league_names).to eq(["NBA", "WNBA", "NCAA Basketball", "NCAA Women's Basketball"])
       end
 
       it "returns the teams for each league" do

@@ -1,31 +1,48 @@
-<script type="text/x-moustache" id="menu-template">
-  <ul class="leagues vertical tabs">
-    {{#leagues}}
-    <li>
-      <a href="#">{{ shortName }}</a>
-      <ul class="teams">
-        {{#teams}}
-        <li><a href="#" class="team-link" data-parent-id="{{parentId}}" data-id="{{id}}">{{ name }}</a></li>
-        {{/teams}}
-      </ul>
-    </li>
-    {{/leagues}}
-  </ul>
-</script>
-
 <div class="row">
   <nav role="navigation">
     <h1>Basketball</h1>
     <p id="menu-placeholder">
-      Leagues and teams will appear here
+      Please wait while the team list loads...
     </p>
+    <script type="text/x-moustache" id="menu-template">
+      <ul class="leagues vertical tabs">
+        {{#leagues}}
+        <li>
+          <a href="#">{{ shortName }}</a>
+          <ul class="teams">
+            {{#teams}}
+            <li>
+              <a href="#" class="team-link" data-parent-id="{{parentId}}" data-id="{{id}}">{{ name }}</a>
+            </li>
+            {{/teams}}
+          </ul>
+        </li>
+        {{/leagues}}
+      </ul>
+    </script>
+
   </nav>
 
   <section role="main" class="hide-for-small">
+    <h2 id="team-name"></h2>
     <p class="show-for-small">
       <a href="#" id="mobile-select-team">Select a team</a>
     </p>
-    <p> Team contents will go here </p>
+    <h4>Latest news</h4>
+    <p id="news-placeholder"> Select a team to see some news</p>
+    <script type="text/x-moustache" id="news-template">
+      <ul id="news-list">
+        {{#news}}
+        <li>
+          {{#image}}
+          <img src="{{image}}"/>
+          {{/image}}
+          <h3>{{headline}}</h3>
+          <p>{{description}}</p>
+        </li>
+        {{/news}}
+      </ul>
+    </script>
   </section> <!-- main content -->
 </div> <!-- row -->
 

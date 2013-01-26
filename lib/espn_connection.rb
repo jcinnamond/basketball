@@ -13,7 +13,11 @@ class ESPNConnection
   def get(path)
     resp = RestClient.get(url_for(path))
     json = JSON.parse(resp.body)
-    json["sports"].first
+    if (json.has_key?("sports"))
+      json["sports"].first
+    else
+      json
+    end
   end
 
   private

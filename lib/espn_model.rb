@@ -55,8 +55,13 @@ module ESPNModelDSL
     self.instance_variable_get(:@associations) || []
   end
 
+  def set_key(key)
+    self.instance_variable_set(:@key, key.to_s)
+  end
+
   def key
-    self.name.tableize
+    key = self.instance_variable_get(:@key)
+    key || self.name.tableize
   end
 
   def set_path(path)

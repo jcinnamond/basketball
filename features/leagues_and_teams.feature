@@ -4,7 +4,7 @@ Feature: Leagues and teams
   As a user
   I want to see a list of leagues and teams
 
-  Scenario: List of leagues
+  Scenario: List of leagues and teams
     Given a successful response from ESPN
     When I go to the application page
     Then I should see the following leagues:
