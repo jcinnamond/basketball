@@ -4,9 +4,9 @@ class APP.NewsView
   constructor: (news_items) ->
     container = $("section[role='main']")
 
-    # Remove the placeholder text and replace it using the news template
-    placeholder = $("#news-placeholder")
-    placeholder.remove()
+    # Clear the placeholder text but don't remove it because it will
+    # be used again if the team changes
+    $("#news-placeholder").text("")
 
     template = $("#news-template").text()
 

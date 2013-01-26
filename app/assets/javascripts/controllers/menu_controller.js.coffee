@@ -10,6 +10,6 @@ class APP.MenuController
       teamId = $(target).attr("data-id")
 
       news_loader.load(parentId, teamId)
-      $("#team-name").text(target.text)
+      APP.NewsList.setTeamName(target.text)
     )
 
